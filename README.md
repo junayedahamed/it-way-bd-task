@@ -1,16 +1,6 @@
 # api_task
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ Those values are manually added that will not update there incomplete state to complete because we make a update call on api if that success then we update it locally .... Here our manually added tasks are not posted in DB so it will return status code of 500 that's why we could not update it's status
+ 

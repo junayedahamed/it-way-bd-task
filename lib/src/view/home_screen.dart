@@ -1,48 +1,17 @@
 import 'package:api_task/src/services/api_services.dart';
+import 'package:api_task/src/view/widget/add_task_dialogue.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
 
-  void _showAddTaskDialog(BuildContext context) {
-    final controller = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Add Task"),
-          content: TextField(
-            controller: controller,
-            decoration: const InputDecoration(hintText: "Enter task title"),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("Cancel"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                if (controller.text.isNotEmpty) {
-                  context.read<TaskProvider>().addTask(controller.text);
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text("Add"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<TaskProvider>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Tasks with ChangeNotifier")),
+      appBar: AppBar(title: const Text("Task Manager")),
       body:
           //cheking loading state
           provider.loading
@@ -68,26 +37,37 @@ class TaskScreen extends StatelessWidget {
                       horizontal: 12,
                       vertical: 6,
                     ),
-                    child: ListTile(
-                      leading: CircleAvatar(child: Text("${index + 1}")),
-                      title: Text(task.title),
-                      // subtitle: Text(
-                      //   "Completed: ${task.completed ? "Yes" : "No"}",
-                      // ),
-                      // tileColor: task.completed ? Colors.grey : Colors.white,
-                      trailing: task.completed
-                          ? Icon(Icons.check)
-                          : Checkbox(
-                              value: task.completed,
-                              onChanged: (_) => provider.toggleCompleted(task),
-                            ),
+                    child: Center(
+                      child: ListTile(
+                        leading: CircleAvatar(child: Text("${index + 1}")),
+                        title: Text(task.title),
+                        // subtitle: Text(
+                        //   "Completed: ${task.completed ? "Yes" : "No"}",
+                        // ),
+                        // tileColor: task.completed ? Colors.grey : Colors.white,
+                        trailing: task.completed
+                            ? Icon(Icons.check)
+                            : Checkbox(
+                                value: task.completed,
+                                onChanged: (_) =>
+                                    provider.toggleCompleted(task),
+                              ),
+                      ),
                     ),
                   ),
                 );
               },
             ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddTaskDialog(context),
+        onPressed: () {
+          //showing add dialogue
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AddTaskDialogue();
+            },
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );
