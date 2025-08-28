@@ -41,4 +41,43 @@ class TaskProvider extends ChangeNotifier {
     _loading = false; //stop of circular indicator by doing loading false
     notifyListeners(); //calling   notifyListeners() for ui change
   }
+
+  //update task status
+  Future<void> toggleCompleted(Task task) async {
+    final updated = {
+      ...task.toJson(),
+      "completed": !task.completed,
+    }; //finding our updatable task and override it's old value by new value and preparing for put operation
+
+    final url = Uri.parse(
+      "https://jsonplaceholder.typicode.com/todos/${task.id}", //updating task by id in db
+    );
+    final response = await http.put(
+      url,
+      body: jsonEncode(updated),
+    ); //putting payload with url
+    //cheking status code is success or not
+    if (response.statusCode == 200) {
+      //if success then locally chnge the value hence it would not update in DB
+      task.completed = !task.completed;
+      notifyListeners(); //calling   notifyListeners() for ui change
+    }
+  }
+
+  Future<void> addTask(String title) async {
+    //taking title of todo and making a payload for post
+    final newTask = {"userId": 1, "title": title, "completed": false};
+    //parsing url
+    final url = Uri.parse("https://jsonplaceholder.typicode.com/todos");
+    //posting new value by http post
+    final response = await http.post(url, body: jsonEncode(newTask));
+    //checking post status code  (post success code is 201)
+    if (response.statusCode == 201) {
+      //locally change the list for ui update
+      final newtask = Task.fromJson(newTask);
+      log(newtask.title);
+      _tasks.add(newtask);
+      notifyListeners(); //calling   notifyListeners() for ui change
+    }
+  }
 }

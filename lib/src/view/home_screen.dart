@@ -25,7 +25,7 @@ class TaskScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (controller.text.isNotEmpty) {
-                  // context.read<TaskProvider>().addTask(controller.text);
+                  context.read<TaskProvider>().addTask(controller.text);
                   Navigator.pop(context);
                 }
               },
@@ -75,10 +75,10 @@ class TaskScreen extends StatelessWidget {
                       //   "Completed: ${task.completed ? "Yes" : "No"}",
                       // ),
                       // tileColor: task.completed ? Colors.grey : Colors.white,
-                      // trailing: Checkbox(
-                      //   value: task.completed,
-                      //   // onChanged: (_) => provider.toggleCompleted(task),
-                      // ),
+                      trailing: Checkbox(
+                        value: task.completed,
+                        onChanged: (_) => provider.toggleCompleted(task),
+                      ),
                     ),
                   ),
                 );
