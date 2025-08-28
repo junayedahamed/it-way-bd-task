@@ -76,7 +76,7 @@ class TaskScreen extends StatelessWidget {
                       // ),
                       // tileColor: task.completed ? Colors.grey : Colors.white,
                       trailing: task.completed
-                          ? null
+                          ? Icon(Icons.check)
                           : Checkbox(
                               value: task.completed,
                               onChanged: (_) => provider.toggleCompleted(task),
