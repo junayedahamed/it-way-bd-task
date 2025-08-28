@@ -19,3 +19,15 @@
  ┃ ┃ ┗ 📜home_screen.dart
  ┗ 📜main.dart
  ```
+
+# Steps
+
+ ```
+ git clone https://github.com/junayedahamed/it-way-bd-task.git
+
+ cd it-way-bd-task
+
+flutter pub get
+flutter run
+
+ ```
