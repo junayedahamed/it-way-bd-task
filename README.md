@@ -1,16 +1,33 @@
 # api_task
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+ Those values are manually added that will not update there incomplete state to complete because we make a update call on api if that success then we update it locally .... Here our manually added tasks are not posted in DB so it will return status code of 500 that's why we could not update it's status
+ 
+ ## File Stucture
+```
 
-A few resources to get you started if this is your first Flutter project:
+📦lib
+ ┣ 📂src
+ ┃ ┣ 📂model
+ ┃ ┃ ┗ 📜task_model.dart
+ ┃ ┣ 📂services
+ ┃ ┃ ┗ 📜api_services.dart
+ ┃ ┗ 📂view
+ ┃ ┃ ┣ 📂widget
+ ┃ ┃ ┃ ┗ 📜add_task_dialogue.dart
+ ┃ ┃ ┗ 📜home_screen.dart
+ ┗ 📜main.dart
+ ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Steps
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ ```
+ git clone https://github.com/junayedahamed/it-way-bd-task.git
+
+ cd it-way-bd-task
+
+flutter pub get
+flutter run
+
+ ```
