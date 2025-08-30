@@ -22,15 +22,15 @@ class TaskProvider extends ChangeNotifier {
     try {
       // parsing url for fetching data
       final url = Uri.parse("https://jsonplaceholder.typicode.com/todos");
-      final response = await http.get(url);
+      final response = await http.get(
+        url,
+        headers: {"Content-Type": "application/json"},
+      );
+      // log(response.body.toString());
       //checking success status code
       if (response.statusCode == 200) {
         final List data = jsonDecode(response.body);
-        _tasks = data
-            .map((json) => Task.fromJson(json))
-            .toList()
-            .take(20)
-            .toList();
+        _tasks = data.map((json) => Task.fromJson(json)).toList();
       } else {
         _error = "Failed to load tasks"; //unsuccess  message
       }
@@ -50,10 +50,13 @@ class TaskProvider extends ChangeNotifier {
     }; //finding our updatable task and override it's old value by new value and preparing for put operation
 
     final url = Uri.parse(
-      "https://jsonplaceholder.typicode.com/todos/${task.id}", //updating task by id in db
+      "https://jsonplaceholder.typicode.com/todos/${task.id}",
+
+      //updating task by id in db
     );
     final response = await http.put(
       url,
+      headers: {"Content-Type": "application/json"},
       body: jsonEncode(updated),
     ); //putting payload with url
     // log(response.statusCode.toString());
@@ -71,7 +74,11 @@ class TaskProvider extends ChangeNotifier {
     //parsing url
     final url = Uri.parse("https://jsonplaceholder.typicode.com/todos");
     //posting new value by http post
-    final response = await http.post(url, body: jsonEncode(newTask));
+    final response = await http.post(
+      url,
+      body: jsonEncode(newTask),
+      headers: {"Content-Type": "application/json"},
+    );
     //checking post status code  (post success code is 201)
     if (response.statusCode == 201) {
       //locally change the list for ui update

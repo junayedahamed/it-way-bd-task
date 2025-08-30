@@ -31,7 +31,7 @@ class TaskScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final task = provider.tasks[index]; //taking each data unit
                 return SizedBox(
-                  height: 80,
+                  height: 120,
                   child: Card(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 12,
